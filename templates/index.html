@@ -1,0 +1,21 @@
+<script src="{{ url_for('static',filename='webcam.js') }}"></script>
+<div id="my_camera" style="width:320px; height:240px;"></div>
+<div id="my_result" style="float: right;"></div>
+<script language="JavaScript">
+    Webcam.attach( '#my_camera' );
+
+    function take_snapshot() {
+        Webcam.snap( function(data_uri) {
+            document.getElementById('my_result').innerHTML = '<img id="userImage" src="'+data_uri+'"/>';
+        } );
+
+        var img_data = document.getElementById("userImage").src;
+
+        //console.log(img_data);
+
+        Webcam.upload(img_data, '/upload', function(code, text) {
+            console.log("Complete");
+        } );
+    }
+</script>
+<a href="javascript:void(take_snapshot())">Take Snapshot</a>
